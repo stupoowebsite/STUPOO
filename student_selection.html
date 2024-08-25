@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUPOO Student Semester Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .logout-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin: 20px auto;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .semester-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .semester-group h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .semester-group button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            width: 150px;
+            color: white;
+            font-weight: bold;
+        }
+        .semester-group .sem1 {
+            background-color: #28a745;
+        }
+        .semester-group .sem2 {
+            background-color: #17a2b8;
+        }
+        .semester-group button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>STUPOO - Select Semester and Subject</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    <div class="container">
+        <div class="semester-group">
+            <h2>1st Semester</h2>
+            <button class="sem1" onclick="goToSubject(1)">Subject 1</button>
+            <button class="sem1" onclick="goToSubject(2)">Subject 2</button>
+            <button class="sem1" onclick="goToSubject(3)">Subject 3</button>
+            <button class="sem1" onclick="goToSubject(4)">Subject 4</button>
+            <button class="sem1" onclick="goToSubject(5)">Subject 5</button>
+            <button class="sem1" onclick="goToSubject(6)">Subject 6</button>
+            <button class="sem1" onclick="goToSubject(7)">Subject 7</button>
+            <button class="sem1" onclick="goToSubject(8)">Subject 8</button>
+        </div>
+        <div class="semester-group">
+            <h2>2nd Semester</h2>
+            <button class="sem2" onclick="goToSubject(9)">Subject 1</button>
+            <button class="sem2" onclick="goToSubject(10)">Subject 2</button>
+            <button class="sem2" onclick="goToSubject(11)">Subject 3</button>
+            <button class="sem2" onclick="goToSubject(12)">Subject 4</button>
+            <button class="sem2" onclick="goToSubject(13)">Subject 5</button>
+            <button class="sem2" onclick="goToSubject(14)">Subject 6</button>
+            <button class="sem2" onclick="goToSubject(15)">Subject 7</button>
+            <button class="sem2" onclick="goToSubject(16)">Subject 8</button>
+        </div>
+    </div>
+
+    <script>
+        function goToSubject(subjectNumber) {
+            window.location.href = `student_subject_${subjectNumber}.html`;
+        }
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

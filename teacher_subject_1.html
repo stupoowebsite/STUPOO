@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUPOO Teacher Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            padding: 5px 10px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .logout-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+            margin: 20px auto;
+        }
+        .box {
+            background-color: white;
+            padding: 20px;
+            width: 45%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .manage {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        .manage input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .manage button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .manage button.delete {
+            background-color: #dc3545;
+        }
+        .file-input {
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="goBack()">Back</button>
+        <h1>STUPOO Teacher</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <h2>Announcements</h2>
+            <div id="announcements"></div>
+            <div class="manage">
+                <input type="text" id="new-announcement" placeholder="Add new announcement text">
+                <button onclick="addAnnouncement()">Add Text</button>
+                <button class="delete" onclick="deleteAnnouncements()">Delete All</button>
+                <input type="file" id="announcement-file" class="file-input" onchange="uploadFile('announcement')">
+            </div>
+        </div>
+        <div class="box">
+            <h2>Assignments</h2>
+            <div id="assignments"></div>
+            <div class="manage">
+                <input type="text" id="new-assignment" placeholder="Add new assignment text">
+                <button onclick="addAssignment()">Add Text</button>
+                <button class="delete" onclick="deleteAssignments()">Delete All</button>
+                <input type="file" id="assignment-file" class="file-input" onchange="uploadFile('assignment')">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadContent() {
+            const announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+            const assignments = JSON.parse(localStorage.getItem('assignments')) || [];
+
+            const announcementsDiv = document.getElementById('announcements');
+            const assignmentsDiv = document.getElementById('assignments');
+
+            announcementsDiv.innerHTML = announcements.map(a => 
+                a.type === 'text' ? `<p>${a.content}</p>` : 
+                `<img src="${a.content}" alt="Announcement Image">`
+            ).join('');
+            assignmentsDiv.innerHTML = assignments.map(a => 
+                a.type === 'text' ? `<p>${a.content}</p>` : 
+                `<img src="${a.content}" alt="Assignment Image">`
+            ).join('');
+        }
+
+        function addAnnouncement() {
+            const newAnnouncement = document.getElementById('new-announcement').value.trim();
+            if (newAnnouncement) {
+                let announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+                announcements.push({ type: 'text', content: newAnnouncement });
+                localStorage.setItem('announcements', JSON.stringify(announcements));
+                loadContent();
+                document.getElementById('new-announcement').value = '';
+            }
+        }
+
+        function deleteAnnouncements() {
+            localStorage.removeItem('announcements');
+            loadContent();
+        }
+
+        function addAssignment() {
+            const newAssignment = document.getElementById('new-assignment').value.trim();
+            if (newAssignment) {
+                let assignments = JSON.parse(localStorage.getItem('assignments')) || [];
+                assignments.push({ type: 'text', content: newAssignment });
+                localStorage.setItem('assignments', JSON.stringify(assignments));
+                loadContent();
+                document.getElementById('new-assignment').value = '';
+            }
+        }
+
+        function deleteAssignments() {
+            localStorage.removeItem('assignments');
+            loadContent();
+        }
+
+        function uploadFile(type) {
+            const fileInput = document.getElementById(`${type}-file`);
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const fileContent = e.target.result;
+                    let data = JSON.parse(localStorage.getItem(type + 's')) || [];
+                    data.push({ type: 'file', content: fileContent });
+                    localStorage.setItem(type + 's', JSON.stringify(data));
+                    loadContent();
+                };
+                reader.readAsDataURL(file); // For images and videos
+            }
+        }
+        
+        // Go back function
+        function goBack() {
+            window.history.back(); // Go back to the previous page
+        }
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>
