@@ -47,17 +47,20 @@
             font-size: 12px;
         }
         .container {
-            display: flex;
-            justify-content: space-around;
             width: 90%;
             margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .box {
             background-color: white;
             padding: 20px;
-            width: 45%;
+            width: 100%;
+            max-width: 600px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
+            margin-bottom: 20px;
         }
         h2 {
             color: #333;
@@ -141,6 +144,7 @@
                 a.type === 'text' ? `<p>${a.content}</p>` : 
                 `<img src="${a.content}" alt="Announcement Image">`
             ).join('');
+
             assignmentsDiv.innerHTML = assignments.map(a => 
                 a.type === 'text' ? `<p>${a.content}</p>` : 
                 `<img src="${a.content}" alt="Assignment Image">`
@@ -148,9 +152,9 @@
         }
 
         function addAnnouncement() {
-            const newAnnouncement = document.getElementById('new-announcement').value.trim();
+            const newAnnouncement = document.getElementById('new-announcement').value;
             if (newAnnouncement) {
-                let announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+                const announcements = JSON.parse(localStorage.getItem('announcements')) || [];
                 announcements.push({ type: 'text', content: newAnnouncement });
                 localStorage.setItem('announcements', JSON.stringify(announcements));
                 loadContent();
@@ -164,9 +168,9 @@
         }
 
         function addAssignment() {
-            const newAssignment = document.getElementById('new-assignment').value.trim();
+            const newAssignment = document.getElementById('new-assignment').value;
             if (newAssignment) {
-                let assignments = JSON.parse(localStorage.getItem('assignments')) || [];
+                const assignments = JSON.parse(localStorage.getItem('assignments')) || [];
                 assignments.push({ type: 'text', content: newAssignment });
                 localStorage.setItem('assignments', JSON.stringify(assignments));
                 loadContent();
@@ -180,24 +184,27 @@
         }
 
         function uploadFile(type) {
-            const fileInput = document.getElementById(`${type}-file`);
+            const fileInput = type === 'announcement' ? 
+                document.getElementById('announcement-file') : 
+                document.getElementById('assignment-file');
             const file = fileInput.files[0];
+
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
-                    const fileContent = e.target.result;
-                    let data = JSON.parse(localStorage.getItem(type + 's')) || [];
-                    data.push({ type: 'file', content: fileContent });
-                    localStorage.setItem(type + 's', JSON.stringify(data));
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const item = { type: 'image', content: content };
+                    const list = JSON.parse(localStorage.getItem(type + 's')) || [];
+                    list.push(item);
+                    localStorage.setItem(type + 's', JSON.stringify(list));
                     loadContent();
                 };
-                reader.readAsDataURL(file); // For images and videos
+                reader.readAsDataURL(file);
             }
         }
-        
-        // Go back function
+
         function goBack() {
-            window.history.back(); // Go back to the previous page
+            window.history.back();
         }
 
         function logout() {
