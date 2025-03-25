@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Selection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: url('https://scontent.fceb2-1.fna.fbcdn.net/v/t1.15752-9/484471597_1175681230888144_7170567128123519800_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGWm83sbLdyGXBF0A5eyS9xqmKycYSlJuuqYrJxhKUm6weYgVKdKG59Er8Wwr_mgJxmNtebEmRsk4MLTqd6HCA1&_nc_ohc=rJ_Lc9v0Ya4Q7kNvgEOEVS9&_nc_oc=AdlLBEqSLBva0JU7GVTamf8E5-rJQP52P5ab23corJdxKHWjSThaRpZmkLwU8dayFm4&_nc_zt=23&_nc_ht=scontent.fceb2-1.fna&oh=03_Q7cD1wGJb0MWhTQfKHbIeEooASi8SBJbAwGBdlJElePnMWKaOw&oe=680A4DD2') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .grade-section {
+            border: 2px solid #ffd700;
+            padding: 20px;
+            width: 220px;
+            background-color: rgba(65, 105, 225, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ffd700;
+        }
+        h2 {
+            color: #ffffff;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px #000;
+        }
+        button:hover {
+            background-color: #002244;
+        }
+        .nav-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .back-btn, .logout-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 2px 2px 5px #000;
+        }
+        .logout-btn {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button class="back-btn" onclick="location.href='selection_back.html'">Back</button>
+        <button class="logout-btn" onclick="location.href='index.html'">Logout</button>
+    </div>
+    <h1>Select Your Grade & Section</h1>
+    <div class="container">
+        <div class="grade-section">
+            <h2>Grade 11</h2>
+            <button onclick="location.href='stem11/stem11.html'">STEM A</button>
+			<button onclick="location.href='stem11B/stem11.html'">STEM B</button>
+            <button onclick="location.href='abm11/abm11.html'">ABM A</button>
+			<button onclick="location.href='abm11b/abm11.html'">ABM B</button>
+            <button onclick="location.href='humss11/humss11.html'">HUMSS A</button>
+			<button onclick="location.href='humss11b/humss11.html'">HUMSS B</button>
+			<button onclick="location.href='humss11c/humss11.html'">HUMSS C</button>
+			<button onclick="location.href='humss11d/humss11.html'">HUMSS D</button>
+            <button onclick="location.href='arts11/arts11.html'">ARTS & DESIGN</button>
+            <button onclick="location.href='sports11/sports11.html'">SPORTS</button>
+            <button onclick="location.href='css11/css11.html'">CSS</button>
+            <button onclick="location.href='caregiving11/caregiving11.html'">CAREGIVING</button>
+            <button onclick="location.href='agri11/agri11.html'">AGRICULTURE</button>
+            <button onclick="location.href='smaw11/smaw11.html'">SMAW</button>
+            <button onclick="location.href='hairdressing11/hairdressing11.html'">HAIRDRESSING</button>
+            <button onclick="location.href='bpp11/bpp11.html'">BPP</button>
+        </div>
+        <div class="grade-section">
+            <h2>Grade 12</h2>
+            <button onclick="location.href='stem12/stem12.html'">STEM A</button>
+			<button onclick="location.href='stem12b/stem12.html'">STEM B</button>
+            <button onclick="location.href='abm12/abm12.html'">ABM A</button>
+			<button onclick="location.href='abm12b/abm12.html'">ABM B</button>
+            <button onclick="location.href='humss12/humss12.html'">HUMSS A</button>
+			<button onclick="location.href='humss12b/humss12.html'">HUMSS B</button>
+			<button onclick="location.href='humss12c/humss12.html'">HUMSS C</button>
+            <button onclick="location.href='arts12/arts12.html'">ARTS & DESIGN</button>
+            <button onclick="location.href='sports12/sports12.html'">SPORTS</button>
+            <button onclick="location.href='css12/css12.html'">CSS</button>
+            <button onclick="location.href='caregiving12/caregiving12.html'">CAREGIVING</button>
+            <button onclick="location.href='agriculture12/agriculture12.html'">AGRICULTURE</button>
+            <button onclick="location.href='smaw12/smaw12.html'">SMAW</button>
+            <button onclick="location.href='hairdressing12/hairdressing12.html'">HAIRDRESSING</button>
+            <button onclick="location.href='bpp12/bpp12.html'">BPP</button>
+        </div>
+    </div>
+</body>
+</html>
