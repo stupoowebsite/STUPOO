@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUPOO - General Announcements</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(65, 105, 225, 0.9);
+            padding: 20px;
+            border-radius: 50px;
+            width: 130%;
+            max-width: 1300px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            margin-top: 10px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }	
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ffd700;
+            font-size: 20px;
+        }
+
+        .back-btn { background-color: green; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; }
+        .logout-btn { background-color: red; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; }
+
+        .announcement-list {
+            background-color: white;
+            color: #333;
+            padding: 50px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .announcement-list p {
+            font-size: 24px; 
+            font-weight: bold;
+            margin: 5px 0; 
+        }
+
+        .edit-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .comment-section {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .comment { 
+            background: white; 
+            color: black; 
+            padding: 10px; 
+            border-radius: 5px; 
+            margin-top: 10px; 
+            font-size: 24px; /* Increased text size */
+        }
+
+        .reply { 
+            margin-left: 20px; 
+            background: #f0f0f0; 
+            padding: 5px; 
+            border-radius: 5px; 
+            font-size: 15px; /* Increased text size */
+        }
+
+        #announcementText {
+            font-size: 24px; /* Increase font size */
+            height: 60px; /* Increase height */
+            width: 98%; /* Make it full width */
+            padding: 10px; /* Add some padding for better appearance */
+            border-radius: 5px; /* Optional: Add border radius */
+            border: 1px solid #ccc; /* Optional: Add border */
+        }
+        
+        #commentText {
+            font-size: 24px; /* Increase font size */
+            height: 60px; /* Increase height */
+            width: 98%; /* Make it full width */
+            padding: 10px; /* Add some padding for better appearance */
+            border-radius: 5px; /* Optional: Add border radius */
+            border: 1px solid #ccc; /* Optional: Add border */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="history.back()">Back</button>
+            <h1>RWS [HUMMS 11 B] Announcements/Assignments</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div id="announcement-list" class="announcement-list"></div>
+
+        <div class="edit-container">
+            <textarea id="announcementText" placeholder="Write an announcement..."></textarea>
+            <input type="file" id="uploadFile" accept="image/*,video/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" /> <!-- Accept images, videos, and documents -->
+            <button onclick="addAnnouncement()">Add Announcement</button>
+        </div>
+
+        <div class="comment-section">
+            <h2>Comments</h2>
+            <textarea id="commentText" placeholder="Write a comment..."></textarea>
+            <button onclick="addComment()">Post Comment</button>
+            <div id="comment-list"></div>
+        </div>
+    </div>
+
+    <script>
+        function loadAnnouncements() {
+            const announcements = JSON.parse(localStorage.getItem("generalAnnouncements")) || [];
+            const announcementList = document.getElementById("announcement-list");
+            announcementList.innerHTML = "";
+            
+            announcements.forEach((announcement, index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    <p style="font-size: 24px; font-weight: bold;">${announcement.text}</p>
+                    <p style="font-size: 12px;">Posted on: ${announcement.dateTime}</p>
+                    ${announcement.file ? `
+                        ${announcement.fileType.startsWith('image/') ? `
+                            <img src="${announcement.file}" alt="Uploaded Image" style="max-width: 320px; max-height: 240px;" />
+                        ` : announcement.fileType.startsWith('video/') ? `
+                            <video width="320" height="240" controls>
+                                <source src="${announcement.file}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        ` : `
+                            <a href="${announcement.file}" target="_blank">View Document</a>
+                        `}
+                    ` : ""}
+                    <button onclick="deleteAnnouncement(${index})">Delete</button>
+                `;
+                announcementList.appendChild(div);
+            });
+        }
+
+        function addAnnouncement() {
+            const text = document.getElementById("announcementText").value;
+            const fileInput = document.getElementById("uploadFile");
+            let fileUrl = "";
+            let fileType = "";
+
+            if (fileInput.files[0]) {
+                fileUrl = URL.createObjectURL(fileInput.files[0]);
+                fileType = fileInput.files[0].type; // Get the file type
+            }
+
+            const dateTime = new Date().toLocaleString();
+            const announcements = JSON.parse(localStorage.getItem("generalAnnouncements")) || [];
+            announcements.push({ text, file: fileUrl, fileType, dateTime }); // Add fileType to announcement
+            localStorage.setItem("generalAnnouncements", JSON.stringify(announcements));
+            document.getElementById("announcementText").value = "";
+            fileInput.value = "";
+            loadAnnouncements();
+        }
+
+        function deleteAnnouncement(index) {
+            const announcements = JSON.parse(localStorage.getItem("generalAnnouncements"));
+            announcements.splice(index, 1);
+            localStorage.setItem("generalAnnouncements", JSON.stringify(announcements));
+            loadAnnouncements();
+        }
+
+        function loadComments() {
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            const commentList = document.getElementById("comment-list");
+            commentList.innerHTML = "";
+            comments.forEach((comment, index) => {
+                const div = document.createElement("div");
+                div.classList.add("comment");
+                div.innerHTML = `
+                    <p>${comment.text}</p>
+                    <p style="font-size: 12px;">Commented on: ${comment.dateTime}</p>
+                    <button onclick="deleteComment(${index})">Delete</button>
+                    <textarea id="replyText${index}" placeholder="Reply..."></textarea>
+                    <button onclick="addReply(${index})">Reply</button>
+                    <div id="replies${index}"></div>
+                `;
+                commentList.appendChild(div);
+                comment.replies.forEach(reply => {
+                    const replyDiv = document.createElement("div");
+                    replyDiv.classList.add("reply");
+                    replyDiv.innerText = reply;
+                    document.getElementById(`replies${index}`).appendChild(replyDiv);
+                });
+            });
+        }
+
+        function addComment() {
+            const text = document.getElementById("commentText").value;
+            if (!text.trim()) return;
+            const dateTime = new Date().toLocaleString();
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.push({ text, replies: [], dateTime });
+            localStorage.setItem("comments", JSON.stringify(comments));
+            document.getElementById("commentText").value = "";
+            loadComments();
+        }
+
+        function deleteComment(index) {
+            const comments = JSON.parse(localStorage.getItem("comments"));
+            comments.splice(index, 1);
+            localStorage.setItem("comments", JSON.stringify(comments));
+            loadComments();
+        }
+
+        function addReply(index) {
+            const replyText = document.getElementById(`replyText${index}`).value;
+            if (!replyText.trim()) return;
+            const comments = JSON.parse(localStorage.getItem("comments"));
+            comments[index].replies.push(replyText);
+            localStorage.setItem("comments", JSON.stringify(comments));
+            document.getElementById(`replyText${index}`).value = "";
+            loadComments();
+        }
+
+        function logout() { window.location.href = 'index.html'; }
+
+        loadAnnouncements();
+        loadComments();
+    </script>
+</body>
+</html>	
