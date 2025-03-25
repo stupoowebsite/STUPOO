@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester Subjects</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: url('https://scontent.fceb6-2.fna.fbcdn.net/v/t1.15752-9/484519670_2181439818941053_7856331641351370008_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHFXzB4_yp0gbEVrEDQtEa5pB_KsNvGJKekH8qw28Ykp5wzxhEIX-kqkANhC63ez6_gmRf9alZop3UX7m8deHN3&_nc_ohc=Ptb-7XAAOF0Q7kNvgF8DSVz&_nc_oc=AdlLiu6B4DfepHmo54M3s6Q3lQEdW_vp3SNMxIBSj3hqmkucrfiAgIsGo82CkjyGLmc&_nc_zt=23&_nc_ht=scontent.fceb6-2.fna&oh=03_Q7cD1wGpV6-0h0Ovf6Jctjv3I88VvVmW7w7w74dKT92SWs_vMQ&oe=680A5149') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .semester {
+            border: 2px solid #ffd700;
+            padding: 20px;
+            width: 300px;
+            background-color: rgba(65, 105, 225, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ffd700;
+        }
+        h2 {
+            color: #ffffff;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px #000;
+        }
+        button:hover {
+            background-color: #002244;
+        }
+        .nav-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .back-btn, .logout-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 2px 2px 5px #000;
+        }
+        .logout-btn {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button class="back-btn" onclick="location.href='file:///C:/Users/Rod%20Troy/Desktop/STUPOO/selection_grade.html'">Back</button>
+        <button class="logout-btn" onclick="location.href='file:///C:/Users/Rod%20Troy/Desktop/STUPOO/index.html'">Logout</button>
+    </div>
+    <h1>Select Your Subject</h1>
+    <div class="container">
+        <div class="semester">
+            <h2>1st Semester</h2>
+            <button onclick="location.href='entrep/entrep11.html'">Entrepreneurship</button>
+            <button onclick="location.href='komuni/komuni11.html'">Komunikasyon</button>
+            <button onclick="location.href='pe/pe111.html'">PE</button>
+            <button onclick="location.href='oralcom/oralcom11.html'">ORAL COMMUNICATION</button>
+            <button onclick="location.href='genm/genm11.html'">GEN MATH</button>
+            <button onclick="location.href='eal/eal11.html'">EARTH AND LIFE</button>
+            <button onclick="location.href='css/css11.html'">CSS</button>
+			<button onclick="location.href='philo/philo11.html'">Philosophy</button>
+        </div>
+        <div class="semester">
+            <h2>2nd Semester</h2>
+            <button onclick="location.href='ucsp/ucsp11.html'">UCSP</button>
+            <button onclick="location.href='pe2/pe211.html'">PE</button>
+            <button onclick="location.href='pr1/pr111.html'">Practical Research 1</button>
+            <button onclick="location.href='css2/css211.html'">CSS</button>
+			<button onclick="location.href='pagbasa/pagbasa11.html'">Pagbabasa</button>
+			<button onclick="location.href='rws/rws11.html'">Reading and Writing Skill</button>
+			<button onclick="location.href='stat/stat11.html'">Statistics and Probability</button>
+			<button onclick="location.href='physci/physci11.html'">Physical Science</button>
+        </div>
+    </div>
+</body>
+</html>
