@@ -45,20 +45,20 @@
             margin: 20px auto;
             text-shadow: 2px 2px 5px #000; /* Dark shadow for better readability */
         }
-        .info-section {
+        .info-section, .tutorial-section {
             flex: 1;
             padding: 20px;
             text-align: center;
-        }
-        .tutorial-section {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+            border-radius: 10px; /* Rounded corners */
         }
         .announcement-group {
             flex: 1;
             text-align: center;
             margin-top: 30px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding for the announcement group */
         }
         h2 {
             color: #ffd700; /* Yellow Gold */
@@ -125,20 +125,19 @@
             <h2>About Our Website</h2>
             <p>STUPOO is designed to streamline communication between teachers and students. Stay updated with the latest announcements and assignments.</p>
         </div>
-    </div>
 
-    <script>
-        function showGeneralAnnouncements() {
-            window.location.href = "sgeneral_announcements.html"; // Link to the general announcements page
-        }
-
-        function showSectionAnnouncements() {
-            window.location.href = "selection_grade.html"; // Link to the section-specific announcements page
-        }
-
-        function logout() {
-            window.location.href = 'index.html';
-        }
-    </script>
-</body>
-</html>
+        <script>
+            function showGeneralAnnouncements() {
+                window.location.href = "sgeneral_announcements.html"; // Link to the general announcements page
+            }
+    
+            function showSectionAnnouncements() {
+                window.location.href = "selection_grade.html"; // Link to the section-specific announcements page
+            }
+    
+            function logout() {
+                window.location.href = 'index.html'; // Redirect to the login page
+            }
+        </script>
+    </body>
+    </html>
